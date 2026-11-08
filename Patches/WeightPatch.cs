@@ -28,18 +28,28 @@ namespace WeightLevelingRedux.Patches
         [PatchPostfix]
         private static void Postfix(ref float __result)
         {
+            ApplyMultiplier(ref __result);
+        }
+
+        internal static void ApplyMultiplier(ref float weight)
+        {
             if (!Singleton<GlobalConfiguration>.Instantiated)
             {
                 return;
             }
 
-            Profile profile = ((IProfileSession)ClientAppUtils.GetClientApp()?.Session)?.Profile;
+            Profile profile = GetSessionProfile();
             if (profile == null)
             {
                 return;
             }
 
-            __result *= GetMultiplier(profile.Experience);
+            weight *= GetMultiplier(profile.Experience);
+        }
+
+        internal static Profile GetSessionProfile()
+        {
+            return ((IProfileSession)ClientAppUtils.GetClientApp()?.Session)?.Profile;
         }
 
         private static float GetMultiplier(int experience)
@@ -58,6 +68,21 @@ namespace WeightLevelingRedux.Patches
             _cachedExperience = experience;
             _cacheValid = true;
             return _cachedMultiplier;
+        }
+    }
+
+    // Launcher overrides Item.Weight, so the base getter patch never sees it.
+    internal class LauncherWeightPatch : ModulePatch
+    {
+        protected override MethodBase GetTargetMethod()
+        {
+            return AccessTools.PropertyGetter(typeof(Launcher), nameof(Launcher.Weight));
+        }
+
+        [PatchPostfix]
+        private static void Postfix(ref float __result)
+        {
+            WeightPatch.ApplyMultiplier(ref __result);
         }
     }
 }

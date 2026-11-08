@@ -37,15 +37,16 @@ You can configure the mod via the BepInEx menu in-game (F12)
 ## Behavior notes
 
 - The reduction is based on your **PMC** level, including when you play as a **Scav**.
-- It applies to the weight of every item and is applied once per item. Container and stack totals are built from the reduced item weights, so a loaded backpack isn't reduced twice.
+- It applies to the weight of every item and is applied once per item. Container and stack totals are built from the reduced item weights, so a loaded backpack is not reduced twice.
+- Underbarrel launchers use their own weight calculation in the game, so they're patched separately and their weight is reduced the same way as every other item.
+- When you change a setting, the mod clears its cached multiplier and tells the game to recalculate your total weight. The weight display and the stamina/overweight effects update right away
 
 ## Changes from the original
 
 - **Null safety:** the weight patch does nothing if the game's global configuration, client app, session or profile are not available yet, instead of throwing an exception from inside the weight getter.
 - **Performance:** the weight multiplier is cached per experience value and only recalculated when your experience or a setting changes. The original mod recalculated your level on every weight lookup.
-- something-something uhh **configurable**
-- **Customizability**: added `Reduction Per Step (%)`, `Levels Per Step`, and `Max Reduction (%)` allowing the player to decide the strength of the modifier, how often that modifier is applied, and the maximum amount of weight that can be shaved off of items.
+- **Customizability**: added `Reduction Per Step (%)`, `Levels Per Step`, and `Max Reduction (%)` allowing you to decide the strength of the modifier, how often that modifier is applied, and the maximum amount of weight that can be shaved off of items.
 
 ## Credits
 
-- [SomeTransGirl](https://github.com/SomeTransGirl): author of the original Weight Leveling mod, which I forked from. The original is MIT licensed and its copyright notice is preserved
+- `SomeTransGirl`: author of the original Weight Leveling mod, which I forked from. The original is MIT licensed and its copyright notice is preserved

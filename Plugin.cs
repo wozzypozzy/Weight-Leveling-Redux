@@ -10,7 +10,7 @@ namespace WeightLevelingRedux
     {
         public const string PluginGuid = "wozzy.spt.weightlevelingredux";
         public const string PluginName = "Weight Leveling Redux";
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
 
         public static ManualLogSource LogSource;
 
@@ -46,12 +46,13 @@ namespace WeightLevelingRedux
                     "Upper limit on the total weight reduction. 50 = items never weigh less than 50% of their normal weight, no matter how high your level is.",
                     new AcceptableValueRange<float>(0f, 100f)));
 
-            ReductionPerStep.SettingChanged += (sender, args) => WeightPatch.Invalidate();
-            LevelsPerStep.SettingChanged += (sender, args) => WeightPatch.Invalidate();
-            MaxReduction.SettingChanged += (sender, args) => WeightPatch.Invalidate();
+            ReductionPerStep.SettingChanged += (sender, args) => WeightRefresher.Apply();
+            LevelsPerStep.SettingChanged += (sender, args) => WeightRefresher.Apply();
+            MaxReduction.SettingChanged += (sender, args) => WeightRefresher.Apply();
 
             LogSource.LogInfo("Loading Weight Patch");
             new WeightPatch().Enable();
+            new LauncherWeightPatch().Enable();
         }
     }
 }
