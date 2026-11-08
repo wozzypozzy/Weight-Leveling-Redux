@@ -36,9 +36,8 @@ You can configure the mod via the BepInEx menu in-game (F12)
 
 ## Behavior notes
 
-- The reduction is based on your **PMC** level, including when you play a **Scav**.
-- It applies to the weight of every item and is applied once per item. Container and stack totals are built from the reduced item weights, so a loaded backpack is not reduced twice.
-- Grenade launcher attachments use their own weight calculation in the game and are not reduced.
+- The reduction is based on your **PMC** level, including when you play as a **Scav**.
+- It applies to the weight of every item and is applied once per item. Container and stack totals are built from the reduced item weights, so a loaded backpack isn't reduced twice.
 
 ## Changes from the original
 
