@@ -49,4 +49,4 @@ You can configure the mod via the BepInEx menu in-game (F12)
 
 ## Credits
 
-- `SomeTransGirl`: author of the original Weight Leveling mod, which I forked from. The original is MIT licensed and its copyright notice is preserved
+- [SomeTransGirl](https://github.com/SomeTransGirl): author of the original Weight Leveling mod, which I forked from. The original is MIT licensed and its copyright notice is preserved
